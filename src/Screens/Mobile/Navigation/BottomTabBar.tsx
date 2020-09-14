@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { TabBar } from 'antd-mobile';
-import { HomeOutlined, UserOutlined, BellOutlined, HeartOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusOutlined, ShoppingOutlined, EditOutlined } from '@ant-design/icons';
 import { userCheck } from '../../../components/userCheck';
 import { Store } from '../../../Context/Store';
 import { getData } from '../../../localStorage/getData';
-// import { HomeScreen, Wishlist, Notification } from '../Content';
+import { HomeScreen, AddNewProduct, Orders, EditProduct } from '../Content';
+import { Logout } from '../SignInFlow';
 import Loader from '../../../components/mobileLoader';
 import Colors from '../../../utils/Colors';
 import './BottomTabStyle.css';
-import { Logout } from '../SignInFlow';
 
 export const BottomTabBar = () => {
     const [selectedTab, setSelectedTab] = useState('homeTab');
@@ -23,6 +23,7 @@ export const BottomTabBar = () => {
         setLoading(false);
       }
     }, []);
+    // <p onClick={() => Logout(history)}>kjhkj</p>
 
     if(!loggedUser) {
       return( <Loader /> )
@@ -50,46 +51,46 @@ export const BottomTabBar = () => {
                 setSelectedTab('homeTab');
                 }}
                 >
-                <p onClick={() => Logout(history)}>kjhkj</p>
+                <HomeScreen />
             </TabBar.Item>
 
             <TabBar.Item
-                icon={<HeartOutlined className="bottomTabIcon" />}
-                selectedIcon={<HeartOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
-                title="Wishlist"
-                key="wishlist"
-                selected={selectedTab === 'wishlistTab'}
+                icon={<PlusOutlined className="bottomTabIcon" />}
+                selectedIcon={<PlusOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
+                title="Add Product"
+                key="add_product"
+                selected={selectedTab === 'addNewProductTab'}
                 onPress={() => {
-                setSelectedTab('wishlistTab');
+                setSelectedTab('addNewProductTab');
                 }}
                 >
-                <p>Wish</p>
+                <AddNewProduct />
             </TabBar.Item>
             
-            <TabBar.Item
-                icon={<BellOutlined className="bottomTabIcon" />}
-                selectedIcon={<BellOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
-                title="Notification"
-                key="notification"
-                selected={selectedTab === 'notificationTab'}
+            <TabBar.Item 
+                icon={<ShoppingOutlined className="bottomTabIcon" />}
+                selectedIcon={<ShoppingOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
+                title="Orders"
+                key="orders"
+                selected={selectedTab === 'orderTab'}
                 onPress={() => {
-                setSelectedTab('notificationTab');
+                setSelectedTab('orderTab');
                 }}
                 >
-                <p>tab</p>
+                <Orders />
             </TabBar.Item>
 
             <TabBar.Item
-                icon={<UserOutlined className="bottomTabIcon" />}
-                selectedIcon={<UserOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
-                title="Profile"
-                key="profile"
-                selected={selectedTab === 'profileTab'}
+                icon={<EditOutlined className="bottomTabIcon" />}
+                selectedIcon={<EditOutlined className="bottomTabIcon" twoToneColor={Colors.darkBlue()} />}
+                title="Edit Product"
+                key="edit_product"
+                selected={selectedTab === 'editProductTab'}
                 onPress={() => {
-                setSelectedTab('profileTab');
+                setSelectedTab('editProductTab');
                 }}
                 >
-                <p>Profile Tab Content</p>
+                <EditProduct />
             </TabBar.Item>
         </TabBar>
         }

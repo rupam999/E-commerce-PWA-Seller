@@ -6,7 +6,7 @@ const mobileLoader = () => (
         style={{ 
             position: 'absolute', 
             width: '100%', 
-            height: document.documentElement.clientHeight * 0.6, 
+            height: document.documentElement.clientHeight * 0.8, 
             display: 'flex', 
             justifyContent: 'center',
             alignItems: 'center'
