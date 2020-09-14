@@ -1,0 +1,99 @@
+.mainDiv {
+    background-color: #fff;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.parentDivOf3SubDiv {
+    background-color: #fff;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productImageDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+}
+
+.productDescription {
+    width: 70%!important;
+}
+
+.productHeading {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: rgb(33, 33, 33);
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    -webkit-line-clamp: 2;
+}
+
+.mainPrice {
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-family: "Roboto Medium", Roboto-Medium, "Droid Sans", HelveticaNeue-Medium, "Helvetica Neue Medium", sans-serif-medium;
+    box-sizing: border-box;
+}
+
+.mrpPrice {
+    text-decoration-line: line-through;
+    margin-left: 8px;
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+    font-family: "Roboto Medium", Roboto-Medium, "Droid Sans", HelveticaNeue-Medium, "Helvetica Neue Medium", sans-serif-medium;
+}
+
+.offPercentage {
+    color: rgb(68, 156, 77);
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.productImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.smallHeading {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 1px;
+    color: rgb(33, 33, 33);
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    -webkit-line-clamp: 1;
+}
+
+.offerTagLine {
+    padding-left: 15px;
+    margin: 15px;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.offerTag {
+    color: rgb(38, 165, 65);
+    margin-left: 8px;
+    font-family: "Roboto Medium", Roboto-Medium, "Droid Sans", HelveticaNeue-Medium, "Helvetica Neue Medium", sans-serif-medium;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline;
+    font: 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+
+}

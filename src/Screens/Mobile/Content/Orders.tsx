@@ -3,6 +3,7 @@ import { Drawer } from 'antd-mobile';
 import { HomeScreenHeader } from '../Header';
 import WindowDimensions from '../../../components/WindowDimensions';
 import DrawerContent from './components/DrawerContent';
+import OrdersIntro from './components/OrdersIntro';
 
 export const Orders = () => {
     const [menu, toggle] = useState(false);
@@ -34,8 +35,10 @@ export const Orders = () => {
                 onOpenChange={onOpenChange}
                 >
                 <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="Orders" />
-                <div style={{paddingTop: 101}}>
-                    <p>Orders Screen Content</p>
+                <div style={{paddingTop: 45}}>
+                    <OrdersIntro />
+                    <OrdersIntro />
+                    <OrdersIntro />
                 </div>
             </Drawer>
 

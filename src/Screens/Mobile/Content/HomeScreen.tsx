@@ -35,7 +35,7 @@ export const HomeScreen = () => {
                 >
                 <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="E-commerce Seller" />
                 <div style={{paddingTop: 101}}>
-                    <p>Home Screen Content</p>
+                    <p>Home Screen</p>
                 </div>
             </Drawer>
 
