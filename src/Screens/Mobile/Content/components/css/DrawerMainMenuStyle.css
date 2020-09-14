@@ -1,0 +1,48 @@
+.drawerMainMenu {
+    width: 100%;
+    margin-right: 12px;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.linkDiv {
+    background-color: #fff;
+}
+
+.listItem {
+    border-bottom-width: 0px;
+    margin-bottom: 5px;
+}
+
+.linkDiv .am-list-item {
+    padding-left: 12px!important;
+    min-height: 35px!important;
+}
+
+.linkDiv .am-list-item .am-list-thumb:first-child {
+    margin-right: 10px!important;
+}
+
+.linkDiv .am-list-item .am-list-line .am-list-content {
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+}
+
+.filedNamePara {
+    font-size: 15px;
+    color: #000;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    html:not([data-scale]) .am-list-body div:not(:last-child) .am-list-line::after {
+        background-color: rgba(221, 221, 221, 0)!important;
+        opacity: 0!important;
+    } 
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    html:not([data-scale]) .am-list-body::before {
+        background-color: #ddd;
+        opacity: 0!important;
+    }
+}
