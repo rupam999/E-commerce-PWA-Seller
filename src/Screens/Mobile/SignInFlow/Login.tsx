@@ -30,6 +30,8 @@ export const Login = () => {
             setError('Account is not Verified!')
         } else if(res === -1){
             setError('Internal Server Error!')
+        } else if(res === 3) {
+            setError('Wrong User Type')
         } else {
             setUser(res)
             history.push('/seller')
@@ -43,7 +45,7 @@ export const Login = () => {
 
     useEffect(() => {
         const user = getData('user');
-        if(user && user.name) {
+        if(user && user.uid) {
             history.push('/seller');
         }
     });
