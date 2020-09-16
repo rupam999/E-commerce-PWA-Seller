@@ -16,6 +16,10 @@
     overflow-y: scroll;
 }
 
+.addNewProductForm .ant-col-16{
+    max-width: 100%;
+}
+
 .formHeading {
     margin-top: 10px;
     margin-bottom: 25px;

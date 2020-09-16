@@ -84,7 +84,7 @@ export const AddNewProduct = () => {
                 <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="Add New Product" />
                 <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
                 <div className="mainContent" style={{backgroundColor: Colors.white()}}>
-                    <div style={{zIndex: 1, paddingBottom: 150}}>
+                    <div style={{zIndex: 1, paddingBottom: 150}} className="addNewProductForm">
                         <div className="formHeading">
                             <h3>Just fill the details and it's done!</h3>
                         </div>
@@ -147,11 +147,19 @@ export const AddNewProduct = () => {
                                 </Button>
                             </Upload>
 
-                            <Form.Item name="organicProduct" style={{marginBottom: 5}}>
+                            <Form.Item 
+                                name="organicProduct" 
+                                valuePropName="checked" 
+                                style={{marginBottom: 5}}
+                                >
                                 <Checkbox>Organic Product</Checkbox>
                             </Form.Item>
 
-                            <Form.Item name="vegProduct" style={{}}>
+                            <Form.Item 
+                                name="vegProduct" 
+                                valuePropName="checked"
+                                style={{}}
+                                >
                                 <Checkbox>100% Veg</Checkbox>
                             </Form.Item>
 
