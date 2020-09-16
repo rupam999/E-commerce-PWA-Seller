@@ -7,10 +7,8 @@ export const handleLogin = async (values: any) => {
         const res = await postRequest( LOGIN ,values);
         if(res.data.error === 1) {
             return 1;
-        } else if(res.data.error === 2) {
-            return 2;
         } else if (res.data.type === 'Buyer') {
-            return 3;
+            return 2;
         }
         if(res.data.type === 'Seller') {
             storeData("user", res.data);

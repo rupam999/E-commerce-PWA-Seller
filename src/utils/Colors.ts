@@ -15,7 +15,10 @@ const Colors = {
         return `rgba(33, 29, 29, ${a})`;
     },
     green: (a = 1) => {
-        return `rgba(38, 165, 65, ${a});`;
+        return `rgba(38, 165, 65, ${a})`;
+    },
+    buttonRed: (a = 1) => {
+        return `rgba(255, 88, 0, ${a})`;
     }
 }
 
