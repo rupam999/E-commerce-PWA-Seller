@@ -29,9 +29,9 @@ export const HomeScreenHeader = (props) => {
                         key="0" 
                         className="homeScreenIconStyle" 
                         onClick={() => {
-                            // if (pathCheck(history, "/user/cart")) {
-                            //     history.push("/user/cart");
-                            // }
+                            if (pathCheck(history, "/seller/all-categories")) {
+                                history.push("/seller/all-categories");
+                            }
                         }}
                         style={{color: Colors.headerIconColor(), fontSize: 20}} 
                     />,

@@ -26,11 +26,9 @@ export const Login = () => {
         setLoader(false)
         if(res === 1) {
             setError('Wrong Phone Number or Password!')
-        } else if(res === 2) {
-            setError('Account is not Verified!')
         } else if(res === -1){
             setError('Internal Server Error!')
-        } else if(res === 3) {
+        } else if(res === 2) {
             setError('Wrong User Type')
         } else {
             setUser(res)
@@ -104,7 +102,7 @@ export const Login = () => {
                                         type="primary"
                                         htmlType="submit" 
                                         className="submitBtn" 
-                                        style={{backgroundColor: '#ff5800'}}
+                                        style={{backgroundColor: Colors.buttonRed()}}
                                         >
                                         Login
                                     </Button>
