@@ -13,7 +13,6 @@ const { Option } = Select;
 export const AddNewProduct = () => {
     const [menu, toggle] = useState(false);
     const [allCategoriesData, setAllCategoriesData] = useState([]);
-    const [data, setData] = useState();
     const [category, setCategory] = useState('');
     const {width} = WindowDimensions();
 
@@ -127,7 +126,7 @@ export const AddNewProduct = () => {
                             </Select>
 
                             <Form.Item
-                                name="username"
+                                name="productPrice"
                                 rules={[{ required: true, message: 'Please enter the price!' }]}
                                 >
                                 <Input 
