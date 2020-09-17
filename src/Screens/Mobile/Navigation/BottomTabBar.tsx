@@ -51,7 +51,7 @@ export const BottomTabBar = () => {
                 setSelectedTab('homeTab');
                 }}
                 >
-                <AddNewProduct />
+                <HomeScreen />
             </TabBar.Item>
 
             <TabBar.Item

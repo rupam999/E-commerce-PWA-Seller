@@ -98,7 +98,7 @@ export const AddNewProduct = () => {
                 open={menu}
                 onOpenChange={onOpenChange}
                 >
-                <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="Add New Product" />
+                <HomeScreenHeader topPadding={true}  menu={menu} toggle={toggle} pageHeading="Add New Product" />
                 <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
                 <div className="mainContent" style={{backgroundColor: Colors.white()}}>
                     {showSuccess ? <Success /> :
@@ -153,6 +153,18 @@ export const AddNewProduct = () => {
                                     type='number'
                                     size='large'
                                     placeholder="&nbsp;Product Price" 
+                                    style={{width: '100%', borderRadius: 3}} 
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="productMRP"
+                                rules={[{ required: true, message: 'Please enter the MRP!' }]}
+                                >
+                                <Input 
+                                    type='number'
+                                    size='large'
+                                    placeholder="&nbsp;Product MRP" 
                                     style={{width: '100%', borderRadius: 3}} 
                                 />
                             </Form.Item>
@@ -249,6 +261,16 @@ export const AddNewProduct = () => {
                                     type='email'
                                     size="large" 
                                     placeholder="&nbsp;Manufacturer Email"
+                                    style={{width: '100%', borderRadius: 3}} 
+                                />
+                            </Form.Item>
+
+                            <Form.Item 
+                                rules={[{ required: true, message: 'Please enter Product Keywords!' }]}
+                                name='productKeywords'
+                                >
+                                <Input.TextArea
+                                    placeholder="&nbsp;Product Keywords (use comma)" 
                                     style={{width: '100%', borderRadius: 3}} 
                                 />
                             </Form.Item>
