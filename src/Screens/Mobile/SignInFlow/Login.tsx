@@ -12,6 +12,7 @@ import './css/SignInFlowStyle.css';
 
 export const Login = () => {
     const [loader, setLoader] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { setUser } = useContext(Store);
     const history = useHistory();
@@ -45,94 +46,100 @@ export const Login = () => {
         const user = getData('user');
         if(user && user.uid) {
             history.push('/seller');
+        } else {
+            setLoading(false);
         }
     });
 
     return (
-        <div>
-            <HeaderWithTitleOnly title="E-commerce Seller" curve={true} />
-            <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
-            <div className="mainContent" style={{backgroundColor: Colors.white()}}>
-                {loader ? <Loader /> :
-                <React.Fragment>
-                    <div className="loginHeading">
-                        <h3>Login to get started</h3>
-                        <p>Experience the new E-commerce</p>
-                        {error !== '' ? 
-                            <p style={{textAlign: 'center', color: '#ff5800'}}>{error}</p>
-                        : null }
-                    </div>
-                    <div>
-                        <Form
-                            {...layout}
-                            name="basic"
-                            initialValues={{  }}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            >
-                            <Form.Item
-                                name="phone"
-                                rules={[{ required: true, message: 'Please enter your Phone Number!' }]}
+        <React.Fragment>
+        {loading ? <Loader /> :
+            <div>
+                <HeaderWithTitleOnly title="E-commerce Seller" curve={true} />
+                <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
+                <div className="mainContent" style={{backgroundColor: Colors.white()}}>
+                    {loader ? <Loader /> :
+                    <React.Fragment>
+                        <div className="loginHeading">
+                            <h3>Login to get started</h3>
+                            <p>Experience the new E-commerce</p>
+                            {error !== '' ? 
+                                <p style={{textAlign: 'center', color: '#ff5800'}}>{error}</p>
+                            : null }
+                        </div>
+                        <div className="loginForm">
+                            <Form
+                                {...layout}
+                                name="basic"
+                                initialValues={{  }}
+                                onFinish={onFinish}
+                                onFinishFailed={onFinishFailed}
                                 >
-                                <Input 
-                                    type='number'
-                                    size="large" 
-                                    placeholder="&nbsp;Phone Number" 
-                                    prefix={<MobileOutlined />} 
-                                    style={{width: '100%', borderRadius: 3}} 
-                                />
-                            </Form.Item>
+                                <Form.Item
+                                    name="phone"
+                                    rules={[{ required: true, message: 'Please enter your Phone Number!' }]}
+                                    >
+                                    <Input 
+                                        type='number'
+                                        size="large" 
+                                        placeholder="&nbsp;Phone Number" 
+                                        prefix={<MobileOutlined />} 
+                                        style={{width: '100%', borderRadius: 3}} 
+                                    />
+                                </Form.Item>
 
-                            <Form.Item
-                                name="password"
-                                rules={[{ required: true, message: 'Please enter your Password!' }]}
-                                style={{marginTop: 5}}
-                                >
-                                <Input.Password
-                                    size="large" 
-                                    placeholder="&nbsp;Password" 
-                                    prefix={<LockOutlined />} 
-                                    style={{width: '100%', borderRadius: 3}} 
-                                />
-                            </Form.Item>
+                                <Form.Item
+                                    name="password"
+                                    rules={[{ required: true, message: 'Please enter your Password!' }]}
+                                    style={{marginTop: 5}}
+                                    >
+                                    <Input.Password
+                                        size="large" 
+                                        placeholder="&nbsp;Password" 
+                                        prefix={<LockOutlined />} 
+                                        style={{width: '100%', borderRadius: 3}} 
+                                    />
+                                </Form.Item>
 
-                            <Form.Item>
-                                {true ?
-                                    <Button 
-                                        type="primary"
-                                        htmlType="submit" 
-                                        className="submitBtn" 
-                                        style={{backgroundColor: Colors.buttonRed()}}
-                                        >
-                                        Login
-                                    </Button>
-                                :
-                                    <Button 
-                                        type="primary" 
-                                        htmlType="submit" 
-                                        className="submitBtn"
-                                        style={{backgroundColor: '#c2c2c2'}}
-                                        >
-                                        Login
-                                    </Button>
-                                }
-                            </Form.Item>
-                        </Form>
-                        {/* <div>
-                            <p className="switchPageHeading">New to here ? Click on Register</p>
-                            <Button 
-                                type="primary" 
-                                htmlType="submit" 
-                                className="submitBtn"
-                                style={{backgroundColor: '#ff5800'}}
-                                >
-                                Register
-                            </Button>
-                        </div> */}
-                    </div>
-                </React.Fragment>
-                }
+                                <Form.Item>
+                                    {true ?
+                                        <Button 
+                                            type="primary"
+                                            htmlType="submit" 
+                                            className="submitBtn" 
+                                            style={{backgroundColor: Colors.buttonRed()}}
+                                            >
+                                            Login
+                                        </Button>
+                                    :
+                                        <Button 
+                                            type="primary" 
+                                            htmlType="submit" 
+                                            className="submitBtn"
+                                            style={{backgroundColor: '#c2c2c2'}}
+                                            >
+                                            Login
+                                        </Button>
+                                    }
+                                </Form.Item>
+                            </Form>
+                            {/* <div>
+                                <p className="switchPageHeading">New to here ? Click on Register</p>
+                                <Button 
+                                    type="primary" 
+                                    htmlType="submit" 
+                                    className="submitBtn"
+                                    style={{backgroundColor: '#ff5800'}}
+                                    >
+                                    Register
+                                </Button>
+                            </div> */}
+                        </div>
+                    </React.Fragment>
+                    }
+                </div>
             </div>
-        </div>
+        }
+        </React.Fragment>
     );
 }

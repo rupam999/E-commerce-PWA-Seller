@@ -6,14 +6,21 @@ import { HomeScreenHeader } from '../Header';
 import WindowDimensions from '../../../components/WindowDimensions';
 import DrawerContent from './components/DrawerContent';
 import { getCategories } from '../../../api/getCategories';
+import { addNewProduct } from '../../../api/addNewProduct';
 import Colors from '../../../utils/Colors';
 import './css/AddNewProductStyle.css';
+import Success from '../components/Success';
 const { Option } = Select;
 
 export const AddNewProduct = () => {
     const [menu, toggle] = useState(false);
+    const [error, setError] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false);
     const [allCategoriesData, setAllCategoriesData] = useState([]);
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState([]);
+    const [subCategory, setSubCategory] = useState([]);
+    const [choosenCategory, setChoosenCategory] = useState('');
+    const [choosenSubCategory, setChoosenSubCategory] = useState('');
     const {width} = WindowDimensions();
 
     const layout = {
@@ -36,19 +43,30 @@ export const AddNewProduct = () => {
             .catch();
     }, []);
 
-    const checkData = () => {
-        const categoryIndex = allCategoriesData.findIndex((item) => item.category === 'test')
+    const handleProductCategory = (value) => {
+        setChoosenCategory(value)
+        const categoryIndex = allCategoriesData.findIndex((item) => item.category === value)
         const subCategoryData = categoryIndex === -1 ? [] : 
             allCategoriesData[categoryIndex].sub_category.split(',');
-        console.log(subCategoryData)
+        setSubCategory(subCategoryData)
     }
 
-    const handleProductCategory = (value) => {
-        console.log(`selected ${value}`);
-    }
+    const handleProductSubCategory = (value) => setChoosenSubCategory(value)
       
-    const onFinish = values => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+        values.productCategory = choosenCategory
+        values.productSubCategory = choosenSubCategory
+        console.log(values)
+        if(values.productCategory !== '' && values.productSubCategory) {
+            const productResponse = await addNewProduct(values);
+            if(productResponse === 1){
+                setShowSuccess(true)
+            } else {
+                setError('Please check the category or sub-category')
+            }
+        } else {
+            setError('Please check the category or sub-category')
+        }
     };
       
     const onFinishFailed = errorInfo => {
@@ -80,17 +98,21 @@ export const AddNewProduct = () => {
                 open={menu}
                 onOpenChange={onOpenChange}
                 >
-                <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="Add New Product" />
+                <HomeScreenHeader topPadding={true}  menu={menu} toggle={toggle} pageHeading="Add New Product" />
                 <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
                 <div className="mainContent" style={{backgroundColor: Colors.white()}}>
+                    {showSuccess ? <Success /> :
                     <div style={{zIndex: 1, paddingBottom: 150}} className="addNewProductForm">
                         <div className="formHeading">
                             <h3>Just fill the details and it's done!</h3>
+                            <p style={{color: Colors.buttonRed()}} className="errorText">
+                                {error ? error : null}
+                            </p>
                         </div>
                         <Form
                             {...layout}
                             name="basic"
-                            initialValues={{  }}
+                            initialValues={{ organicProduct: false, vegProduct: false }}
                             onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
                             >
@@ -109,20 +131,18 @@ export const AddNewProduct = () => {
 
                             <Select 
                                 placeholder='Product Category'
-                                style={{ width: '100%', marginBottom: 24, height: 32 }} 
+                                style={{ width: '100%', marginBottom: 24, height: 32 }}
                                 onChange={handleProductCategory}
-                                >
-                                <Option value="jack">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
+                                >  
+                                {category.map((catName, index) => <Option key={index} value={catName}>{catName}</Option>)}
                             </Select>
 
                             <Select 
                                 placeholder='Product Sub-Category'
                                 style={{ width: '100%', marginBottom: 24, height: 32 }} 
-                                onChange={handleProductCategory}
+                                onChange={handleProductSubCategory}
                                 >
-                                <Option value="jack">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
+                                {subCategory.map((subCat, index) => <Option key={index} value={subCat}>{subCat}</Option>)}
                             </Select>
 
                             <Form.Item
@@ -133,6 +153,18 @@ export const AddNewProduct = () => {
                                     type='number'
                                     size='large'
                                     placeholder="&nbsp;Product Price" 
+                                    style={{width: '100%', borderRadius: 3}} 
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="productMRP"
+                                rules={[{ required: true, message: 'Please enter the MRP!' }]}
+                                >
+                                <Input 
+                                    type='number'
+                                    size='large'
+                                    placeholder="&nbsp;Product MRP" 
                                     style={{width: '100%', borderRadius: 3}} 
                                 />
                             </Form.Item>
@@ -210,7 +242,7 @@ export const AddNewProduct = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name="productExpire"
+                                name="productExpiry"
                                 rules={[{ required: true, message: 'Please enter a Expiry Date!' }]}
                                 >
                                 <Input 
@@ -233,6 +265,16 @@ export const AddNewProduct = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item 
+                                rules={[{ required: true, message: 'Please enter Product Keywords!' }]}
+                                name='productKeywords'
+                                >
+                                <Input.TextArea
+                                    placeholder="&nbsp;Product Keywords (use comma)" 
+                                    style={{width: '100%', borderRadius: 3}} 
+                                />
+                            </Form.Item>
+
                             <Form.Item>
                                 <Button 
                                     type="primary" 
@@ -245,6 +287,7 @@ export const AddNewProduct = () => {
                             </Form.Item>
                         </Form>
                     </div>
+                    }
                 </div>
             </Drawer>
 

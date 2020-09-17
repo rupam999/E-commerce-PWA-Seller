@@ -4,6 +4,7 @@ import { useAddToHomescreenPrompt } from "../../../components/AddPrompt";
 import { HomeScreenHeader } from '../Header';
 import WindowDimensions from '../../../components/WindowDimensions';
 import DrawerContent from './components/DrawerContent';
+import Colors from '../../../utils/Colors';
 const alert = Modal.alert;
 
 export const HomeScreen = () => {
@@ -63,10 +64,10 @@ export const HomeScreen = () => {
                 open={menu}
                 onOpenChange={onOpenChange}
                 >
-                <HomeScreenHeader menu={menu} toggle={toggle} pageHeading="E-commerce Seller" />
-                <div style={{paddingTop: 101}}>
-                    {/* {isVisible ? showAlert() : null} */}
-                    <p>Home Screen</p>
+                <HomeScreenHeader topPadding={true} menu={menu} toggle={toggle} pageHeading="E-commerce Seller" />
+                <div className="extraHeader" style={{backgroundColor: Colors.darkBlue()}}></div>
+                <div className="mainContent" style={{backgroundColor: Colors.white()}}>
+                    <p>Home Screen Content</p>
                 </div>
             </Drawer>
 

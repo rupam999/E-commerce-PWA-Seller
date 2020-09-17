@@ -7,7 +7,7 @@ import Colors from '../../../utils/Colors';
 import './css/HomeScreenHeaderStyle.css';
 
 export const HomeScreenHeader = (props) => {
-    const { menu, toggle, pageHeading } = props;
+    const { menu, toggle, pageHeading, topPadding } = props;
     const history = useHistory();
     const onOpenChange = () => {
         toggle(!menu);
@@ -36,7 +36,20 @@ export const HomeScreenHeader = (props) => {
                         style={{color: Colors.headerIconColor(), fontSize: 20}} 
                     />,
                 ]}
-                ><span style={{color: Colors.white(), fontWeight: 600}}>{pageHeading}</span>
+                >
+                {topPadding ?
+                    <span style={{
+                        color: Colors.white(), 
+                        position: 'relative',
+                        top: 3,
+                        fontWeight: 600}}
+                    >{pageHeading}</span>
+                :
+                    <span style={{
+                        color: Colors.white(), 
+                        fontWeight: 600,
+                    }}>{pageHeading}</span>
+                }
             </NavBar>
             
         </div>
