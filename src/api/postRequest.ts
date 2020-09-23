@@ -1,5 +1,5 @@
-import axios from './Config';
+import axios from "./Config";
 
 export const postRequest = (endPoint, params?) => {
-    return axios.post(endPoint, params)
-}
+    return axios.post(endPoint, params);
+};

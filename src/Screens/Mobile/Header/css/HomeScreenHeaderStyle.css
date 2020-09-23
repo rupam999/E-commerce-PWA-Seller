@@ -5,7 +5,7 @@
     top: 0px;
 }
 
-.homeScreenIconStyle { 
+.homeScreenIconStyle {
     font-size: 16px;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .am-drawer-draghandle {
-    background-color: rgba(50, 50, 50, 0)!important;
+    background-color: rgba(50, 50, 50, 0) !important;
 }
 
 .my-drawer .am-drawer-sidebar {
@@ -30,6 +30,7 @@
     width: 300px;
     padding: 0;
 }
+
 /* Drawer Ends Here */
 
 .searchFixedHeader {
@@ -38,19 +39,22 @@
     top: 44px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     opacity: 1;
     font-family: Arial, Helvetica, sans-serif;
 }
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     font-family: Arial, Helvetica, sans-serif;
 }
-  
-::-ms-input-placeholder { /* Microsoft Edge */
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .searchFixedHeader .ant-form-item {
-    margin-bottom: 0px!important;
+    margin-bottom: 0px !important;
 }
