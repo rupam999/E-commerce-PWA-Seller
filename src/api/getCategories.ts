@@ -1,15 +1,15 @@
-import { GET_CATEGORIES } from './Config';
-import { getRequest } from './getRequest';
+import { GET_CATEGORIES } from "./Config";
+import { getRequest } from "./getRequest";
 
 export const getCategories = async () => {
-    try{
+    try {
         const res = await getRequest(GET_CATEGORIES);
-        if(res.data.error === 0){
+        if (res.data.error === 0) {
             return res.data.result;
         } else {
             return 1;
         }
-    } catch{
+    } catch {
         return 1;
     }
-}
+};

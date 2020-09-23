@@ -1,5 +1,5 @@
-import axios from './Config';
+import axios from "./Config";
 
 export const getRequest = async (endPoint, params?) => {
-    return axios.get(endPoint, {params});
-}
+    return axios.get(endPoint, { params });
+};

@@ -16,7 +16,7 @@
     overflow-y: scroll;
 }
 
-.addNewProductForm .ant-col-16{
+.addNewProductForm .ant-col-16 {
     max-width: 100%;
 }
 
@@ -28,7 +28,7 @@
 .errorText {
     padding-left: 5px;
     font-size: 14px;
-    color: rgba(0,0,0,.6);
+    color: rgba(0, 0, 0, .6);
     margin-top: 0px;
     margin-bottom: 6px;
     text-align: center;
@@ -39,7 +39,7 @@
     height: 40px;
     border-radius: 3px;
     line-height: 21px;
-    font-family: Roboto,Arial,sans-serif;
+    font-family: Roboto, Arial, sans-serif;
     letter-spacing: 0;
     padding: 10px;
     text-transform: capitalize;
@@ -52,7 +52,7 @@
     padding-left: 5px;
     font-size: 16px;
     line-height: 1.5rem;
-    color: rgba(0,0,0,.9);
+    color: rgba(0, 0, 0, .9);
     font-weight: 550;
     margin-bottom: 5px;
 }
@@ -63,7 +63,7 @@
     height: 40px;
     border-radius: 3px;
     line-height: 21px;
-    font-family: Roboto,Arial,sans-serif;
+    font-family: Roboto, Arial, sans-serif;
     letter-spacing: 0;
     padding: 10px;
     text-transform: capitalize;

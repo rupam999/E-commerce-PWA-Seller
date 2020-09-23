@@ -1,2 +1,2 @@
-export { MainNavigation } from './MainNavigation';
-export { BottomTabBar } from './BottomTabBar';
+export { MainNavigation } from "./MainNavigation";
+export { BottomTabBar } from "./BottomTabBar";
