@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import { Row, Col, Form, Input, Button, Modal  } from 'antd';
 import { BankOutlined, FileTextOutlined, BookOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import './css/DesktopLoginStyle.css';
+
 
 export const DesktopLogin = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modal, contextHolder] = Modal.useModal();
+
+    const history = useHistory();
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -21,6 +25,7 @@ export const DesktopLogin = () => {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        history.push("/seller");
     };
     
     const onFinishFailed = (errorInfo: any) => {
@@ -38,7 +43,7 @@ export const DesktopLogin = () => {
           ),
           onOk() {},
         });
-      }
+    }
       
 
     return (
@@ -89,7 +94,10 @@ export const DesktopLogin = () => {
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <p onClick={showModal}>hgjhg</p>
+                        <p>
+                            Want to create an account? &nbsp;
+                            <span onClick={showModal}>Click Here</span>
+                        </p>
                     </div>
                 </Col>
             </Row>
