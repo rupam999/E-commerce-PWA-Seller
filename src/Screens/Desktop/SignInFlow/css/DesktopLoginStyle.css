@@ -1,0 +1,57 @@
+.desktopLoginScreen {
+    min-width: 100%;
+    min-height: 500px;
+    overflow-y: auto;
+    background: linear-gradient(rgb(0, 120, 212) 0%, rgba(0, 120, 212, 0.9) 100%);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 100px;
+}
+
+.desktopLoginScreen .loginContent {
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.desktopLoginScreen .loginContent h3 {
+    font-size: 22px;
+    line-height: 30px;
+    color: #fff;
+}
+
+.desktopLoginScreen .loginContent .loginFaq .border {
+    opacity: 0.5;
+    box-sizing: border-box;
+    border: 0.5px solid rgb(255, 255, 255);
+}
+
+.desktopLoginScreen .loginContent .loginFaq .loginFaqContent {
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.desktopLoginScreen .loginContent .loginFaq .loginFaqContent h4, p {
+    color: #fff;
+    padding-bottom: 5px;
+}
+
+.desktopLoginScreen .loginContent .loginFaq .loginFaqContent h4 {
+    font-size: 16px;
+}
+
+.desktopLoginScreen .loginContent .loginFaq .loginFaqContent .icon span .leftPaddingIcon {
+    padding-left: 15px;
+}
+
+.desktopLoginScreen .loginForm {
+    background-color: #fff;
+    padding: 50px;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.desktopLoginScreen .loginForm p {
+    color: #000;
+}
