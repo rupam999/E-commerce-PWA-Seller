@@ -1,0 +1,24 @@
+.desktopAddElectronics {
+    padding: 15px;
+}
+
+.desktopAddElectronics h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 550;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.desktopAddElectronics .leftSideElectronics {
+    padding-right: 20px;
+}
+
+.desktopAddElectronics .rightSideElectronics {
+    padding-left: 20px;
+}
+
+.desktopAddElectronics .ant-upload-select {
+    width: 100% !important;
+}
