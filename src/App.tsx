@@ -7,8 +7,8 @@ import { StoreProvider } from './Context/Store';
 import { Login } from './Screens/Mobile/SignInFlow';
 import { MainNavigation } from './Screens/Mobile/Navigation';
 import { DesktopLogin } from './Screens/Desktop/SignInFlow';
-import { DesktopSellerDashboard } from './Screens/Desktop/Content';
-import AddItem from './Screens/Desktop/Routes/AddItem';
+import { DesktopSellerHome } from './Screens/Desktop/Content';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   const {width} = WindowDimensions();
@@ -18,8 +18,7 @@ const App = () => {
         <Router>
           <Route exact path="/" component={DesktopLogin} />
           <Route exact path="/desktopLogin" component={DesktopLogin} />
-          <Route exact path="/seller" component={DesktopSellerDashboard} />
-          <Route path="/add" component={AddItem} />
+          <PrivateRoute path="/seller" component={DesktopSellerHome} />
         </Router>
       </StoreProvider>
     );
