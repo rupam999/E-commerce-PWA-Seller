@@ -8,6 +8,7 @@ import { Login } from './Screens/Mobile/SignInFlow';
 import { MainNavigation } from './Screens/Mobile/Navigation';
 import { DesktopLogin } from './Screens/Desktop/SignInFlow';
 import { DesktopSellerDashboard } from './Screens/Desktop/Content';
+import AddItem from './Screens/Desktop/Routes/AddItem';
 
 const App = () => {
   const {width} = WindowDimensions();
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact path="/" component={DesktopLogin} />
           <Route exact path="/desktopLogin" component={DesktopLogin} />
           <Route exact path="/seller" component={DesktopSellerDashboard} />
+          <Route path="/add" component={AddItem} />
         </Router>
       </StoreProvider>
     );

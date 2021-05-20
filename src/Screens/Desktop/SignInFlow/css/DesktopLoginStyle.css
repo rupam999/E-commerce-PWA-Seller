@@ -52,6 +52,31 @@
     margin-top: 100px;
 }
 
+.desktopLoginScreen .loginForm h3 {
+    text-align: center;
+    color: rgb(34, 34, 34);
+    font-size: 25px;
+    font-weight: 550;
+    white-space: nowrap;
+    margin-bottom: 30px;
+}
+
 .desktopLoginScreen .loginForm p {
     color: #000;
+}
+
+.desktopLoginScreen .ant-modal-mask, .ant-image-preview-mask {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.desktopLoginScreen .desktopLoginBtn {
+    width: 100%;
+}
+
+.desktopLoginScreen .createAccountQuestion span{
+    color: rgb(66, 137, 219);
+}
+
+.desktopLoginScreen .createAccountQuestion span:hover{
+    cursor: pointer;
 }

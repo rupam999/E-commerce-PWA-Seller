@@ -5,8 +5,10 @@ import {
   PieChartOutlined,
   FileOutlined,
   TeamOutlined,
+  PlusCircleOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 
 import './css/DesktopSellerDashboardStyle.css';
 
@@ -15,6 +17,7 @@ const { SubMenu } = Menu;
 
 export const DesktopSellerDashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const history = useHistory();
 
     const onCollapse = collapsed => {
         console.log(collapsed);
@@ -32,17 +35,26 @@ export const DesktopSellerDashboard = () => {
             <Menu.Item key="2" icon={<DesktopOutlined />}>
               Option 2
             </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
+            <SubMenu key="sub1" icon={<PlusCircleOutlined />} title="Add New Item">
+                <Menu.Item 
+                    key="3"
+                    onClick={() => history.push("/add/electronics")}
+                    >
+                    Electronics
+                </Menu.Item>
+                <Menu.Item 
+                    key="4"
+                    >
+                    Fashion
+                </Menu.Item>
+                <Menu.Item 
+                    key="5"
+                    >
+                    Grocery
+                </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
-              Files
+            <Menu.Item key="9" icon={<UserOutlined />}>
+              Logout
             </Menu.Item>
           </Menu>
         </Sider>

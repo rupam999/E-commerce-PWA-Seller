@@ -1,0 +1,14 @@
+.desktopAccountCreationMessage p{
+    color: #000;
+    margin-bottom: 0px;
+    padding-bottom: 8px;
+}
+
+.desktopCreateAccount .ant-modal-title {
+    font-size: 23px;
+    font-weight: 550;
+    line-height: 28px;
+    text-align: center!important;
+    color: rgb(34, 34, 34);
+    white-space: nowrap;
+}

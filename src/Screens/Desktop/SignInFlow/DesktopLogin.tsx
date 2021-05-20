@@ -1,50 +1,26 @@
 import React, {useState} from 'react';
 import { Row, Col, Form, Input, Button, Modal  } from 'antd';
-import { BankOutlined, FileTextOutlined, BookOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import DesktopCreateAccountForm from './components/DesktopCreateAccountForm';
+import IMG from '../../../assets/Desktop3Image.png';
 import './css/DesktopLoginStyle.css';
 
-
 export const DesktopLogin = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [modal, contextHolder] = Modal.useModal();
-
     const history = useHistory();
+    const [createAccountModal, setCreateAccountModal] = useState(false);
 
-    const showModal = () => {
-        setIsModalVisible(true);
+    const showCreateAccountModal = () => {
+        setCreateAccountModal(true);
     };
 
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const onFinish = (values: any) => {
+    const onFinishLogin = (values: any) => {
         console.log('Success:', values);
         history.push("/seller");
     };
     
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailedLogin = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
-
-    function info() {
-        Modal.info({
-          title: 'This is a notification message',
-          content: (
-            <div>
-              <p>some messages...some messages...</p>
-              <p>some messages...some messages...</p>
-            </div>
-          ),
-          onOk() {},
-        });
-    }
-      
 
     return (
         <div className="desktopLoginScreen">
@@ -53,6 +29,7 @@ export const DesktopLogin = () => {
                     <div className="loginContent">
                         <h3>Sell to crores of customers on Ecommerce, right from your doorstep!</h3>
                         <div className="loginFaq">
+                            <img src={IMG} style={{marginBottom: 10}} />
                             <div className="border"></div>
                             <div className="loginFaqContent">
                                 <h4>How will this information be used?</h4>
@@ -68,45 +45,52 @@ export const DesktopLogin = () => {
                 </Col>
                 <Col span={12} className="loginForm">
                     <div>
+                        <h3>Login to your Seller Account</h3>
                         <Form
-                            name="basic"
-                            initialValues={{  }}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
+                            onFinish={onFinishLogin}
+                            onFinishFailed={onFinishFailedLogin}
                             >
                             <Form.Item
-                                name="username"
-                                rules={[{ required: true, message: 'Please input your username!' }]}
+                                name="email"
+                                rules={[{ required: true, message: 'Please input your E-mail!' }]}
                             >
-                                <Input />
+                                <Input
+                                    type="email" 
+                                    placeholder="E-mail Id"
+                                />
                             </Form.Item>
 
                             <Form.Item
                                 name="password"
                                 rules={[{ required: true, message: 'Please input your password!' }]}
                             >
-                                <Input.Password />
+                                <Input.Password 
+                                    placeholder="Password"
+                                />
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">
-                                Submit
+                                <Button 
+                                    type="primary" 
+                                    htmlType="submit" 
+                                    className="desktopLoginBtn"
+                                    >
+                                    SIGN IN
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <p>
+                        <p className="createAccountQuestion">
                             Want to create an account? &nbsp;
-                            <span onClick={showModal}>Click Here</span>
+                            <span onClick={showCreateAccountModal}>Click Here</span>
                         </p>
                     </div>
                 </Col>
             </Row>
-            <Modal title="Create New Account" footer={false} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <Button onClick={() => {
-                    setIsModalVisible(false)
-                    info()
-          }}>klklklkl</Button>
-            </Modal>
+            {/* Create New Account */}
+            <DesktopCreateAccountForm 
+                createAccountModal={createAccountModal}
+                setCreateAccountModal={setCreateAccountModal}
+            />
         </div>
     );
 }
