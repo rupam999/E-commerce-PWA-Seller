@@ -1,0 +1,22 @@
+.loading {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.loaderIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    color: #057AD5;
+    padding-top: 16%;
+}
+
+.loading h3 {
+    text-align: center;
+    color: rgb(34, 34, 34);
+    font-size: 23px;
+    font-weight: 550;
+    white-space: nowrap;
+    margin-bottom: 30px;
+}

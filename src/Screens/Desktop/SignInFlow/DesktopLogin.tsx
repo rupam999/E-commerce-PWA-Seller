@@ -1,21 +1,76 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Row, Col, Form, Input, Button, Modal  } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { handleLogin } from '../../../api/handleLogin';
 import DesktopCreateAccountForm from './components/DesktopCreateAccountForm';
 import IMG from '../../../assets/Desktop3Image.png';
+import Loading from '../components/Loading';
 import './css/DesktopLoginStyle.css';
+import { serverCheck } from '../../../api/serverCheck';
 
 export const DesktopLogin = () => {
     const history = useHistory();
-    const [createAccountModal, setCreateAccountModal] = useState(false);
+    const [createAccountModal, setCreateAccountModal] = useState<Boolean>(false);
+    const [loading, setLoading] = useState<Boolean>(false);
+
+    const checkServer = async () => {
+        const res = await serverCheck();
+        if(res.data.msg === 'sever running') {
+            setLoading(false);
+        } else {
+            setLoading(false);
+            Modal.error({
+                title: 'Error',
+                content: 'Server Down, Please check after sometime',
+            });
+        }
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        checkServer();
+    }, []);
 
     const showCreateAccountModal = () => {
         setCreateAccountModal(true);
     };
 
-    const onFinishLogin = (values: any) => {
-        console.log('Success:', values);
-        history.push("/seller");
+    const onFinishLogin = async (values: any) => {
+        setLoading(true);
+        const loginResponse = await handleLogin(values);
+        if(loginResponse !== -1) {
+            setLoading(false);
+            if(loginResponse.message === 'Account Not Approved') {
+                Modal.info({
+                    title: 'Info',
+                    content: 'Your account has not been approved by Admin. Please check after sometime.',
+                });
+            } else if(loginResponse.message === 'Wrong Password') {
+                Modal.warning({
+                    title: 'Alert',
+                    content: 'You have entered the wrong password.',
+                });
+            } else if(loginResponse.message === 'No User Found') {
+                Modal.error({
+                    title: 'Error',
+                    content: `No user found with email id of ${values.email}`
+                });
+            } else if(loginResponse.message === 'success') {
+                console.log('Success');
+            } else {
+                Modal.error({
+                    title: 'Error',
+                    content: 'Internal Server Error, Please try again after sometime...',
+                });
+            }
+        } else {
+            setLoading(false);
+            Modal.error({
+                title: 'Error',
+                content: 'Internal Server Error, Please try again after sometime...',
+            });
+        }
+        // history.push("/seller");
     };
     
     const onFinishFailedLogin = (errorInfo: any) => {
@@ -23,6 +78,9 @@ export const DesktopLogin = () => {
     };
 
     return (
+        loading ?
+            <Loading />
+        :
         <div className="desktopLoginScreen">
             <Row>
                 <Col span={12}>
