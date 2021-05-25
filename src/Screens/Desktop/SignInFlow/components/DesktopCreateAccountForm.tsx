@@ -1,27 +1,50 @@
 import React from 'react';
 import { Form, Input, Button, Modal  } from 'antd';
+import { handleSignUp } from '../../../../api/handleSignUp';
 import './css/DesktopCreateAccountFormStyle.css';
 
 const DesktopCreateAccountForm = (props) => {
-    const {createAccountModal, setCreateAccountModal} = props;
+    const {createAccountModal, setCreateAccountModal, setLoading} = props;
 
-    const showInformation = () => {
-        Modal.info({
-          title: 'Message',
-          content: (
-            <div className="desktopAccountCreationMessage">
-              <p>Your details has been submitted successfully!</p>
-              <p>Your account will be activated after 24Hrs.</p>
-            </div>
-          ),
-          onOk() {},
-        });
-    }
-
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+    const onFinish = async (values: any) => {
+        setLoading(true);
+        values.userType = 'seller';
+        const registerResponse = await handleSignUp(values);
         setCreateAccountModal(!createAccountModal);
-        showInformation();
+        setLoading(false);
+        
+        if(registerResponse === -1) {
+            Modal.error({
+                title: 'Error',
+                content: 'Internal Server Error, Please try again after sometime'
+            });
+        } else if(registerResponse.message === 'User Exists') {
+            Modal.warning({
+                title: 'Alert',
+                content: `A Account exists with the mail id of ${values.email}`
+            });
+        } else if(registerResponse.message === 'Account Not Approved') {
+            Modal.info({
+                title: 'Alert',
+                content: 'Your account has not been approved by Admin. Please check after sometime.'
+            });
+        } else if(registerResponse.message === 'success') {
+            Modal.info({
+                title: 'Message',
+                content: (
+                  <div className="desktopAccountCreationMessage">
+                    <p>Your details has been submitted successfully!</p>
+                    <p>Your account will be activated after 24Hrs.</p>
+                  </div>
+                ),
+                onOk() {},
+            });
+        } else {
+            Modal.error({
+                title: 'Error',
+                content: 'Internal Server Error, Please try again after sometime...',
+            });
+        }
     };
     
     const onFinishFailed = (errorInfo: any) => {

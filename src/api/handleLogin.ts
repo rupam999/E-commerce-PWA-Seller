@@ -7,7 +7,7 @@ export const handleLogin = async (values: any) => {
         console.log(res.data);
         return res.data;
     } catch (err) {
-        console.log(err);
+        console.log('Error at handlelogin', err);
         return -1;
     }
 };

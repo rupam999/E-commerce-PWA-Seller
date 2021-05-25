@@ -148,6 +148,7 @@ export const DesktopLogin = () => {
             <DesktopCreateAccountForm 
                 createAccountModal={createAccountModal}
                 setCreateAccountModal={setCreateAccountModal}
+                setLoading={setLoading}
             />
         </div>
     );
