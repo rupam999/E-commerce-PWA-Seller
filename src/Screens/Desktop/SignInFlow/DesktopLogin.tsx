@@ -1,21 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Row, Col, Form, Input, Button, Modal  } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { handleLogin } from '../../../api/handleLogin';
+import { serverCheck } from '../../../api/serverCheck';
+import { storeData } from '../../../localStorage/storeData';
+import { Store } from '../../../Context/Store';
+import { getData } from '../../../localStorage/getData';
 import DesktopCreateAccountForm from './components/DesktopCreateAccountForm';
 import IMG from '../../../assets/Desktop3Image.png';
 import Loading from '../components/Loading';
 import './css/DesktopLoginStyle.css';
-import { serverCheck } from '../../../api/serverCheck';
 
 export const DesktopLogin = () => {
     const history = useHistory();
+    const {user, setUser} = useContext(Store);
     const [createAccountModal, setCreateAccountModal] = useState<Boolean>(false);
     const [loading, setLoading] = useState<Boolean>(false);
 
     const checkServer = async () => {
         const res = await serverCheck();
         if(res.data.msg === 'sever running') {
+            const userInfo = await getData('user');
+            if(userInfo && userInfo.id && userInfo.token) {
+                setLoading(false);
+                history.push('/seller');
+            }
             setLoading(false);
         } else {
             setLoading(false);
@@ -56,7 +65,17 @@ export const DesktopLogin = () => {
                     content: `No user found with email id of ${values.email}`
                 });
             } else if(loginResponse.message === 'success') {
-                console.log('Success');
+                //After Login
+                if(loginResponse.id) {
+                    await storeData('user', loginResponse);
+                    setUser(loginResponse);
+                    history.push('/seller');
+                } else {
+                    Modal.info({
+                        title: 'Info',
+                        content: 'Internal Server Error, Limited information',
+                    });
+                }
             } else {
                 Modal.error({
                     title: 'Error',
@@ -70,7 +89,6 @@ export const DesktopLogin = () => {
                 content: 'Internal Server Error, Please try again after sometime...',
             });
         }
-        // history.push("/seller");
     };
     
     const onFinishFailedLogin = (errorInfo: any) => {

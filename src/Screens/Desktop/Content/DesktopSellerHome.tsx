@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
   HomeOutlined,
@@ -6,6 +6,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { useHistory, Switch, Route } from 'react-router-dom';
+import { Store } from '../../../Context/Store';
 import { DekstopDashboard, DesktopAddElectronics } from './';
 import './css/DesktopSellerDashboardStyle.css';
 
@@ -15,6 +16,7 @@ const { SubMenu } = Menu;
 export const DesktopSellerHome = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useHistory();
+  const {user, setUser} = useContext(Store);
 
   const onCollapse = collapsed => {
     console.log(collapsed);
@@ -23,6 +25,12 @@ export const DesktopSellerHome = () => {
 
   const sendDate = () => {
     return Date();
+  }
+
+  const logout = () => {
+    localStorage.clear();
+    setUser('');
+    history.push('/');
   }
 
   return (
@@ -54,7 +62,7 @@ export const DesktopSellerHome = () => {
           <Menu.Item 
             key="9" 
             icon={<UserOutlined />}
-            onClick={() => history.push("/")}
+            onClick={logout}
             >
             Logout
           </Menu.Item>
