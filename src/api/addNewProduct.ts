@@ -1,15 +1,11 @@
-import { ADD_PRODUCT } from "./Config";
+import { ADD_PRODUCT_DETAILS } from "./Config";
 import { postRequest } from "./postRequest";
 
 export const addNewProduct = async (values) => {
     try {
-        const response = await postRequest(ADD_PRODUCT, values);
-        if (response.data.error === 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        const response = await postRequest(ADD_PRODUCT_DETAILS, values);
+        return response.data;
     } catch {
-        return 0;
+        return -1;
     }
 };

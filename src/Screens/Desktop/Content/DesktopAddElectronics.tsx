@@ -1,32 +1,68 @@
-import React from 'react';
-import { Row, Col, Form, Input, Button, Upload, message, } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Form, Input, Button, Upload, message, Modal} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import {BASE_URL, UPLOAD_IMAGE, UPLOAD_BACKEND_URL} from '../../../api/Config';
 import './css/DesktopAddElectronicsStyle.css';
-
-const props = {
-    name: 'file',
-    action: '#',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-};
+import { addNewProduct } from '../../../api/addNewProduct';
 
 export const DesktopAddElectronics = () => {
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+    const [uploadedImageURL, setUploadedImageURL] = useState<String>('');
+
+    const props = {
+        name: 'productImage',
+        action: `${BASE_URL}${UPLOAD_IMAGE}`,
+        headers: {
+          authorization: 'authorization-file',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                // console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+                //Storing the filename response from the backend to a state
+                const fileName = info.file.response.fileName;
+                const fullURL = `${UPLOAD_BACKEND_URL}${fileName}`;
+                console.log(fullURL);
+                setUploadedImageURL(fullURL);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
+
+    const onFinishAddElectronics = async (values: any) => {
+        values.url = uploadedImageURL;
+        if(values.url) {
+            const productResponse = await addNewProduct(values);
+            if(productResponse !== -1) {
+                if(productResponse.message === 'success') {
+                    setUploadedImageURL('');
+                    Modal.success({
+                        title: 'Success',
+                        content: 'Product added successfully!'
+                    });
+                } else {
+                    Modal.error({
+                        title: 'Error',
+                        content: 'Internal Server Error, Please try again after sometime...',
+                    });
+                }
+            } else {
+                Modal.error({
+                    title: 'Error',
+                    content: 'Internal Server Error, Please try again after sometime...',
+                });
+            }
+        } else {
+            Modal.error({
+                title: 'Error',
+                content: 'Without product image you are not allowed to add a product'
+            });
+        }
     };
     
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailedToInsert = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -34,8 +70,8 @@ export const DesktopAddElectronics = () => {
         <div className="desktopAddElectronics">
             <h3>Add A Electronic Item</h3>
             <Form
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinish={onFinishAddElectronics}
+                onFinishFailed={onFinishFailedToInsert}
                 >
                 <Row>
                     <Col span={12}>
