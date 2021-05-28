@@ -13,6 +13,7 @@ export const DesktopAddElectronics = () => {
         setFormLoading(true);
         const imageURL = await handleUploadImage(image);
 
+        console.log(imageURL);
         setUploadedImageURL(imageURL);
         setFormLoading(false);
 
