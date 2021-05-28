@@ -2,7 +2,8 @@ import axios from "axios";
 export const BASE_URL =
     "https://flipkart-clone-pwa-backend.herokuapp.com";
     // "http://localhost:8000";
-export const UPLOAD_BACKEND_URL = "https://api.cloudinary.com/v1_1/rupam999/image/upload";
+export const UPLOAD_BACKEND_URL = 
+    `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`;
 
 export const LOGIN = "/api/user/login";
 export const REGISTER = '/api/user/register';
