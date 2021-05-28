@@ -37,7 +37,10 @@ export const DesktopSellerHome = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         {/* Logo Area */}
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <div className="desktopSellerLogoSection">
+          <h3>Seller</h3>
+        </div>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" className="desktopSellerMenu">
           <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => history.push("/seller")}>
             Home
           </Menu.Item>
@@ -91,7 +94,7 @@ export const DesktopSellerHome = () => {
               </Switch>
             </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>{sendDate().toString()}</Footer>
+        <Footer style={{ textAlign: 'center' }}>&copy; E-commerce</Footer>
       </Layout>
     </Layout>
   );

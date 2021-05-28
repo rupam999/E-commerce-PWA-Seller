@@ -48,7 +48,10 @@ const DesktopCreateAccountForm = (props) => {
     };
     
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        Modal.error({
+            title: 'Error',
+            content: 'Internal Server Error, Please try again after sometime...',
+        });
     };
 
     return(
