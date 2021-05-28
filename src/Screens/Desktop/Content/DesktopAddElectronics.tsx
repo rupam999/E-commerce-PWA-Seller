@@ -29,6 +29,7 @@ export const DesktopAddElectronics = () => {
 
     const onFinishAddElectronics = async (values: any) => {
         values.url = uploadedImageURL;
+        values.category = 'electronic';
         if(values.url) {
             const productResponse = await addNewProduct(values);
             if(productResponse !== -1) {
@@ -69,7 +70,7 @@ export const DesktopAddElectronics = () => {
         <div className="desktopAddElectronics">
             <h3>Add An Electronic Item</h3>
             {formLoading ?
-            <Loading title="Uploading Image" />
+            <Loading title="Uploading Image..." />
             :
             <Form
                 onFinish={onFinishAddElectronics}
