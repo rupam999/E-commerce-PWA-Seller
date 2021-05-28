@@ -92,7 +92,10 @@ export const DesktopLogin = () => {
     };
     
     const onFinishFailedLogin = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        Modal.error({
+            title: 'Error',
+            content: 'Internal Server Error, Please try again after sometime...',
+        });
     };
 
     return (

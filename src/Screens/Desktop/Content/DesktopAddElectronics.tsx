@@ -1,35 +1,31 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Input, Button, Upload, message, Modal} from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import {BASE_URL, UPLOAD_IMAGE, UPLOAD_BACKEND_URL} from '../../../api/Config';
-import './css/DesktopAddElectronicsStyle.css';
+import { Row, Col, Form, Input, Button, message, Modal} from 'antd';
 import { addNewProduct } from '../../../api/addNewProduct';
+import { handleUploadImage } from '../../../api/handleUploadImage';
+import Loading from '../components/Loading';
+import './css/DesktopAddElectronicsStyle.css';
 
 export const DesktopAddElectronics = () => {
-    const [uploadedImageURL, setUploadedImageURL] = useState<String>('');
+    const [uploadedImageURL, setUploadedImageURL] = useState<any>('');
+    const [formLoading, setFormLoading] = useState<any>('');
 
-    const props = {
-        name: 'productImage',
-        action: `${BASE_URL}${UPLOAD_IMAGE}`,
-        headers: {
-          authorization: 'authorization-file',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                // console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
-                //Storing the filename response from the backend to a state
-                const fileName = info.file.response.fileName;
-                const fullURL = `${UPLOAD_BACKEND_URL}${fileName}`;
-                console.log(fullURL);
-                setUploadedImageURL(fullURL);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-    };
+    const uploadImage = async (image) => {
+        setFormLoading(true);
+        const imageURL = await handleUploadImage(image);
+
+        setUploadedImageURL(imageURL);
+        setFormLoading(false);
+
+        if(imageURL) {
+            message.success(`${image.name} uploaded successfully`);
+        } else {
+            Modal.error({
+                title: 'Server Error',
+                content: `Some error occurred while uploading the image '${image.name}'. 
+                Please try after sometime`
+            });
+        }
+    }
 
     const onFinishAddElectronics = async (values: any) => {
         values.url = uploadedImageURL;
@@ -63,12 +59,18 @@ export const DesktopAddElectronics = () => {
     };
     
     const onFinishFailedToInsert = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        Modal.error({
+            title: 'Error',
+            content: 'Internal Server Error, Please try again after sometime...',
+        });
     };
 
     return(
         <div className="desktopAddElectronics">
-            <h3>Add A Electronic Item</h3>
+            <h3>Add An Electronic Item</h3>
+            {formLoading ?
+            <Loading title="Uploading Image" />
+            :
             <Form
                 onFinish={onFinishAddElectronics}
                 onFinishFailed={onFinishFailedToInsert}
@@ -76,6 +78,22 @@ export const DesktopAddElectronics = () => {
                 <Row>
                     <Col span={12}>
                         <div className="leftSideElectronics">
+                            {uploadedImageURL ? 
+                                <Form.Item>
+                                    <Input
+                                        disabled={true}
+                                        value="Image Uploaded Successfully!"
+                                    />
+                                </Form.Item>
+                            :
+                                <Form.Item>
+                                    <Input type="file" onChange= {(e)=> {
+                                        setFormLoading(true)
+                                        uploadImage(e.target.files[0])
+                                    }} />
+                                </Form.Item>
+                            }
+
                             <Form.Item
                                 name="name"
                                 rules={[{ required: true, message: 'Please input product name!' }]}
@@ -83,19 +101,6 @@ export const DesktopAddElectronics = () => {
                                 <Input 
                                     placeholder="Product Name"
                                 />
-                            </Form.Item>
-
-                            <Form.Item>
-                                <Upload 
-                                    {...props}
-                                    >
-                                    <Button 
-                                        icon={<UploadOutlined />}
-                                        style={{width: '100%'}}
-                                        >
-                                        Click to Upload Product Image
-                                    </Button>
-                                </Upload>
                             </Form.Item>
 
                             <Form.Item
@@ -124,7 +129,8 @@ export const DesktopAddElectronics = () => {
                                 name="mrp"
                                 rules={[{ required: true, message: 'Please input product MRP!' }]}
                                 >
-                                <Input 
+                                <Input
+                                    type='number'
                                     placeholder="Product MRP"
                                 />
                             </Form.Item>
@@ -134,6 +140,7 @@ export const DesktopAddElectronics = () => {
                                 rules={[{ required: true, message: 'Please input selling price!' }]}
                                 >
                                 <Input 
+                                    type='number'
                                     placeholder="Product Selling Price"
                                 />
                             </Form.Item>
@@ -169,6 +176,7 @@ export const DesktopAddElectronics = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            }
         </div>
     );
 }
