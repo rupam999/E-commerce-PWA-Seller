@@ -9,6 +9,7 @@ import { MainNavigation } from './Screens/Mobile/Navigation';
 import { DesktopLogin } from './Screens/Desktop/SignInFlow';
 import { DesktopSellerHome } from './Screens/Desktop/Content';
 import PrivateRoute from './components/PrivateRoute';
+import abc from './Screens/Desktop/Content/abc';
 
 const App = () => {
   const {width} = WindowDimensions();
@@ -18,6 +19,7 @@ const App = () => {
         <Router>
           <Route exact path="/" component={DesktopLogin} />
           <Route exact path="/desktopLogin" component={DesktopLogin} />
+          <Route exact path="/abc" component={abc} />
           <Route exact path="/seller" component={DesktopSellerHome} />
         </Router>
       </StoreProvider>
