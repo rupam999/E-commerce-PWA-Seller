@@ -1,13 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Layout, Menu } from 'antd';
-import {
-  HomeOutlined,
-  PlusCircleOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import React, { useContext, useEffect, useState } from 'react';
+import { Layout, Menu, Modal } from 'antd';
+import { HomeOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { useHistory, Switch, Route } from 'react-router-dom';
 import { Store } from '../../../Context/Store';
 import { DekstopDashboard, DesktopAddElectronics } from './';
+import { checkUser } from '../../Helpers/Utlities';
 import './css/DesktopSellerDashboardStyle.css';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -17,15 +14,36 @@ export const DesktopSellerHome = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useHistory();
   const {user, setUser} = useContext(Store);
+  const [loading, setLoading] = useState<Boolean>(false);
+
+  const checkIsLogin = async () => {
+    try {
+      const response = await checkUser();
+      if(response === -1) {
+        Modal.error({
+          title: 'Error',
+          content: 'Internal Server Error, Please check after sometime',
+        });
+      } else if(response === 0) {
+        history.push('/');
+      }
+    } catch(error) {
+      Modal.error({
+        title: 'Error',
+        content: 'Internal Server Error, Please check after sometime',
+      });
+    }
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    checkIsLogin();
+  }, []);
 
   const onCollapse = collapsed => {
     console.log(collapsed);
     setCollapsed(collapsed);
   };
-
-  const sendDate = () => {
-    return Date();
-  }
 
   const logout = () => {
     localStorage.clear();
@@ -40,11 +58,26 @@ export const DesktopSellerHome = () => {
         <div className="desktopSellerLogoSection">
           <h3>Seller</h3>
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" className="desktopSellerMenu">
-          <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => history.push("/seller")}>
+        <Menu 
+          theme="dark" 
+          defaultSelectedKeys={['1']} 
+          mode="inline" 
+          className="desktopSellerMenu"
+          >
+
+          <Menu.Item 
+            key="1" 
+            icon={<HomeOutlined />} 
+            onClick={() => history.push("/seller")}
+            >
             Home
           </Menu.Item>
-          <SubMenu key="sub1" icon={<PlusCircleOutlined />} title="Add New Item">
+
+          <SubMenu 
+            key="sub1" 
+            icon={<PlusCircleOutlined />} 
+            title="Add New Item"
+            >
             <Menu.Item 
               key="3"
               onClick={() => history.push("/seller/electronics")}
@@ -82,13 +115,13 @@ export const DesktopSellerHome = () => {
             <Switch>
               <Route 
                 exact 
-                path="/seller" 
+                path="/desktopSeller" 
                 component={() => <DekstopDashboard />} 
                 />
               
               <Route
                 exact
-                path="/seller/electronics"
+                path="/desktopSeller/electronics"
                 component={() => <DesktopAddElectronics />}
               />
               </Switch>
