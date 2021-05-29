@@ -18,7 +18,7 @@ const App = () => {
         <Router>
           <Route exact path="/" component={DesktopLogin} />
           <Route exact path="/desktopLogin" component={DesktopLogin} />
-          <PrivateRoute path="/seller" component={DesktopSellerHome} />
+          <Route path="/seller" component={DesktopSellerHome} />
         </Router>
       </StoreProvider>
     );
