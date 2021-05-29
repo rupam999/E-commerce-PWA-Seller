@@ -13,7 +13,7 @@ import './css/DesktopLoginStyle.css';
 
 export const DesktopLogin = () => {
     const history = useHistory();
-    const {user, setUser} = useContext(Store);
+    const {setUser} = useContext(Store);
     const [createAccountModal, setCreateAccountModal] = useState<Boolean>(false);
     const [loading, setLoading] = useState<Boolean>(false);
 
@@ -23,6 +23,7 @@ export const DesktopLogin = () => {
             const userInfo = await getData('user');
             if(userInfo && userInfo.id && userInfo.token) {
                 setLoading(false);
+                setUser(userInfo);
                 history.push('/seller');
             }
             setLoading(false);

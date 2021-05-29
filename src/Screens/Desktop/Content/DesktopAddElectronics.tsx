@@ -1,15 +1,39 @@
-import React, { useState } from 'react';
-import { Row, Col, Form, Input, Button, message, Modal} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Form, Input, Button, message, Modal, Select} from 'antd';
+import { useHistory } from 'react-router-dom';
 import { addNewProduct } from '../../../api/addNewProduct';
 import { handleUploadImage } from '../../../api/handleUploadImage';
+import { getData } from '../../../localStorage/getData';
 import Loading from '../components/Loading';
 import './css/DesktopAddElectronicsStyle.css';
 
+const { Option } = Select;
+
 export const DesktopAddElectronics = () => {
+    const [user, setUser] = useState<any>();
+    const history = useHistory();
     const [uploadedImageURL, setUploadedImageURL] = useState<any>('');
+    const [subCategory, setSubCategory] = useState<String>('');
     const [formLoading, setFormLoading] = useState<any>('');
+    const [loadingTitle, setLoadingTitle] = useState('');
+
+    const getUserData = async () => {
+        const userInfo = await getData('user');
+        setUser(userInfo);
+        if(!userInfo) {
+            history.push('/');
+        }
+    }
+
+    useEffect(() => {
+        setLoadingTitle('Loading...');
+        setFormLoading(true);
+        getUserData();
+        setFormLoading(false);
+    }, []);
 
     const uploadImage = async (image) => {
+        setLoadingTitle('Uploading Image...');
         setFormLoading(true);
         const imageURL = await handleUploadImage(image);
 
@@ -31,8 +55,22 @@ export const DesktopAddElectronics = () => {
     const onFinishAddElectronics = async (values: any) => {
         values.url = uploadedImageURL;
         values.category = 'electronic';
-        if(values.url) {
+        values.subCategory = subCategory;
+        values.user = user.id;
+
+        if(!values.subCategory) {
+            Modal.warning({
+                title: 'Warning',
+                content: 'You need to fill a sub-category'
+            });
+            return;
+        }
+
+        if(values.url && values.subCategory) {
+            setLoadingTitle('Adding Product...');
+            setFormLoading(true);
             const productResponse = await addNewProduct(values);
+            setFormLoading(false);
             if(productResponse !== -1) {
                 if(productResponse.message === 'success') {
                     setUploadedImageURL('');
@@ -71,7 +109,7 @@ export const DesktopAddElectronics = () => {
         <div className="desktopAddElectronics">
             <h3>Add An Electronic Item</h3>
             {formLoading ?
-            <Loading title="Uploading Image..." />
+            <Loading title={loadingTitle} />
             :
             <Form
                 onFinish={onFinishAddElectronics}
@@ -114,6 +152,17 @@ export const DesktopAddElectronics = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item>
+                                <Select 
+                                    defaultValue={'Select a Sub-Category'}
+                                    onChange={(value) => setSubCategory(value.toString())}
+                                    >
+                                    <Option value='ac'>Air Conditioner</Option>
+                                    <Option value='tv'>Television</Option>
+                                    <Option value='mobile'>Mobile</Option>
+                                </Select>
+                            </Form.Item>
+
                             <Form.Item 
                                 name="description" 
                                 rules={[{ required: true, message: 'Please input product description!' }]}
@@ -144,6 +193,16 @@ export const DesktopAddElectronics = () => {
                                 <Input 
                                     type='number'
                                     placeholder="Product Selling Price"
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="countInStock"
+                                rules={[{ required: true, message: 'Please input stock!' }]}
+                                >
+                                <Input 
+                                    type='number'
+                                    placeholder="Count in Stock"
                                 />
                             </Form.Item>
 
