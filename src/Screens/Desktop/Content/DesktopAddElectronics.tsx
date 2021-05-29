@@ -2,17 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Input, Button, message, Modal, Select} from 'antd';
 import { addNewProduct } from '../../../api/addNewProduct';
 import { handleUploadImage } from '../../../api/handleUploadImage';
+import { getData } from '../../../localStorage/getData';
 import Loading from '../components/Loading';
 import './css/DesktopAddElectronicsStyle.css';
 
 const { Option } = Select;
 
 export const DesktopAddElectronics = () => {
-    const [user] = useState<any>();
+    const [user, setUser] = useState<any>();
     const [uploadedImageURL, setUploadedImageURL] = useState<any>('');
     const [subCategory, setSubCategory] = useState<String>('');
     const [formLoading, setFormLoading] = useState<any>('');
     const [loadingTitle, setLoadingTitle] = useState('');
+
+    const getUserData = async () => {
+        const userInfo = await getData('user');
+        setUser(userInfo);
+    }
+
+    useEffect(() => {
+        setLoadingTitle('Loading...');
+        setFormLoading(true);
+        getUserData();
+        setFormLoading(false);
+    }, []);
 
     const uploadImage = async (image) => {
         setLoadingTitle('Uploading Image...');

@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, {createContext, useState} from 'react';
 
-interface IStore {
-    user: any;
-    setUser: (State: any) => void;
-}
-
-const Store = React.createContext<IStore>({
+export const Store = createContext<any>({
     user: {},
-    setUser: (State: any) => {},
+    setUser: (State) => {}
 });
 
-const StoreProvider = (props: any) => {
-    const [user, setUser] = useState({});
+export const StoreProvider = (props: any) => {
+    const [user, setUser] = useState();
+
     return (
-        <Store.Provider value={{ user, setUser }}>
+        <Store.Provider value={{user, setUser}}>
             {props.children}
         </Store.Provider>
     );
-};
-
-export { Store, StoreProvider };
+}
