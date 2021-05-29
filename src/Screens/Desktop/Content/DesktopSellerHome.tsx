@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Layout, Menu, Modal } from 'antd';
-import { HomeOutlined, PlusCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusCircleOutlined, UserOutlined, EditOutlined } from '@ant-design/icons';
 import { useHistory, Switch, Route } from 'react-router-dom';
 import { Store } from '../../../Context/Store';
-import { DekstopDashboard, DesktopAddElectronics } from './';
+import { DekstopDashboard, DesktopAddElectronics, DesktopEditProductHome } from './';
 import { checkUser } from '../../Helpers/Utlities';
 import './css/DesktopSellerDashboardStyle.css';
 
@@ -67,8 +67,8 @@ export const DesktopSellerHome = () => {
 
           <Menu.Item 
             key="1" 
-            icon={<HomeOutlined />} 
-            onClick={() => history.push("/seller")}
+            icon={<HomeOutlined />}  
+            onClick={() => history.push("/desktopSeller")}
             >
             Home
           </Menu.Item>
@@ -80,7 +80,7 @@ export const DesktopSellerHome = () => {
             >
             <Menu.Item 
               key="3"
-              onClick={() => history.push("/seller/electronics")}
+              onClick={() => history.push("/desktopSeller/electronics")}
               >
               Electronics
             </Menu.Item>
@@ -95,6 +95,15 @@ export const DesktopSellerHome = () => {
               Grocery
             </Menu.Item>
           </SubMenu>
+
+          <Menu.Item
+            icon={<EditOutlined />}
+            onClick={() => history.push('/desktopSeller/editProduct')}
+            key="6"
+            >
+            Edit Product
+          </Menu.Item>
+
           <Menu.Item 
             key="9" 
             icon={<UserOutlined />}
@@ -105,7 +114,7 @@ export const DesktopSellerHome = () => {
         </Menu>
       </Sider>
 
-       <Layout className="site-layout">
+      <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
           <div 
@@ -117,12 +126,18 @@ export const DesktopSellerHome = () => {
                 exact 
                 path="/desktopSeller" 
                 component={() => <DekstopDashboard />} 
-                />
+              />
               
               <Route
                 exact
                 path="/desktopSeller/electronics"
                 component={() => <DesktopAddElectronics />}
+              />
+
+              <Route 
+                exact
+                path="/desktopSeller/editProduct"
+                component={() => <DesktopEditProductHome />}
               />
               </Switch>
             </div>
