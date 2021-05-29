@@ -1,14 +1,13 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Row, Col, Form, Input, Button, Modal  } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { handleLogin } from '../../../api/handleLogin';
-import { serverCheck } from '../../../api/serverCheck';
 import { storeData } from '../../../localStorage/storeData';
 import { Store } from '../../../Context/Store';
-import { getData } from '../../../localStorage/getData';
 import DesktopCreateAccountForm from './components/DesktopCreateAccountForm';
 import IMG from '../../../assets/Desktop3Image.png';
 import Loading from '../components/Loading';
+import { checkUser } from '../../Helpers/Utlities';
 import './css/DesktopLoginStyle.css';
 
 export const DesktopLogin = () => {
@@ -17,28 +16,26 @@ export const DesktopLogin = () => {
     const [createAccountModal, setCreateAccountModal] = useState<Boolean>(false);
     const [loading, setLoading] = useState<Boolean>(false);
 
-    const checkServer = async () => {
-        const res = await serverCheck();
-        if(res.data.msg === 'sever running') {
-            const userInfo = await getData('user');
-            if(userInfo && userInfo.id && userInfo.token) {
-                setLoading(false);
-                setUser(userInfo);
-                history.push('/seller');
+    const checkSeller = async () => {
+        try{
+            const response = await checkUser();
+            setLoading(false);
+            if(response === -1) {
+                Modal.error({
+                  title: 'Error',
+                  content: 'Internal Server Error, Please check after sometime',
+                });
+            } else if(response === 1) {
+                history.push('/desktopSeller');
             }
-            setLoading(false);
-        } else {
-            setLoading(false);
-            Modal.error({
-                title: 'Error',
-                content: 'Server Down, Please check after sometime',
-            });
+        } catch(error) {
+            console.log(error);
         }
     }
 
     useEffect(() => {
         setLoading(true);
-        checkServer();
+        checkSeller();
     }, []);
 
     const showCreateAccountModal = () => {
@@ -70,7 +67,7 @@ export const DesktopLogin = () => {
                 if(loginResponse.id) {
                     await storeData('user', loginResponse);
                     setUser(loginResponse);
-                    history.push('/seller');
+                    history.push('/desktopSeller');
                 } else {
                     Modal.info({
                         title: 'Info',
