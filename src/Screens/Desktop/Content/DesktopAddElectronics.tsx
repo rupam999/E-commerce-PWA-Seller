@@ -147,6 +147,14 @@ export const DesktopAddElectronics = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item
+                                name="size"
+                                >
+                                <Input 
+                                    placeholder="Size of the Product (Not Mandatory)"
+                                />
+                            </Form.Item>
+
                             <Form.Item>
                                 <Select 
                                     defaultValue={'Select a Sub-Category'}
@@ -156,6 +164,16 @@ export const DesktopAddElectronics = () => {
                                     <Option value='tv'>Television</Option>
                                     <Option value='mobile'>Mobile</Option>
                                 </Select>
+                            </Form.Item>
+
+                            <Form.Item 
+                                name="highlights" 
+                                rules={[{ required: true, message: 'Please input product Highlights!' }]}
+                                >
+                                <Input.TextArea 
+                                    rows={5}
+                                    placeholder="Product Highlights"
+                                />
                             </Form.Item>
 
                             <Form.Item 
@@ -202,6 +220,14 @@ export const DesktopAddElectronics = () => {
                             </Form.Item>
 
                             <Form.Item
+                                name="warranty"
+                                >
+                                <Input 
+                                    placeholder="Warranty of the Product (Not Mandatory)"
+                                />
+                            </Form.Item>
+
+                            <Form.Item
                                 name="origin"
                                 rules={[{ required: true, message: 'Please input country of Origin!' }]}
                                 >
@@ -211,11 +237,21 @@ export const DesktopAddElectronics = () => {
                             </Form.Item>
 
                             <Form.Item 
+                                name="specifications" 
+                                rules={[{ required: true, message: 'Please input product Specifications!' }]}
+                                >
+                                <Input.TextArea 
+                                    rows={10}
+                                    placeholder="Product Specifications"
+                                />
+                            </Form.Item>
+
+                            <Form.Item 
                                 name="manufacturer" 
                                 rules={[{ required: true, message: 'Please input product manufacturer!' }]}
                                 >
                                 <Input.TextArea 
-                                    rows={10}
+                                    rows={5}
                                     placeholder="Product Manufacturer Details"
                                 />
                             </Form.Item>
