@@ -1,0 +1,46 @@
+.main {
+	margin: 20px 30px;
+	width: 95%;
+}
+
+.product {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.image {
+	width: 15%;
+}
+
+.image img {
+	width: 100%;
+}
+
+.description {
+	width: 70%;
+	text-align: left;
+}
+
+.description h3,
+h4 {
+	font-size: 16px;
+	border-radius: 2px;
+	margin-bottom: 15px;
+	padding: 4px 12px;
+	padding-bottom: 0px;
+	margin-bottom: 0;
+	text-align: left;
+}
+
+.edit {
+	width: 8%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.delete {
+	width: 8%;
+	display: flex;
+	justify-content: flex-end;
+}

@@ -1,0 +1,22 @@
+.main {
+	padding-top: 10px;
+}
+
+.main h3 {
+	text-align: center;
+	font-size: 25px;
+	font-weight: 550;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	color: #212121;
+}
+
+.form {
+	padding: 10px 25px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.inputType {
+	width: 100%;
+}
