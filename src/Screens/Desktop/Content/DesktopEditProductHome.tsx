@@ -3,16 +3,20 @@ import { Modal, Form, Input, Button } from 'antd';
 import { getAllProduct } from '../../../api/getAllProduct';
 import Classes from './css/DesktopEditProductStyle.module.css';
 import SingleLineProduct from '../components/SingleLineProduct';
+import Loading from '../components/Loading';
 
 export const DesktopEditProductHome = () => {
+	const [loading, setLoading] = useState<boolean>(false);
 	const [allProduct, setAllProduct] = useState([]);
-	const getProduct = async () => {
+
+	const getProduct = async (search?) => {
 		try {
-			const response = await getAllProduct();
-			console.log(response);
+			const response = await getAllProduct(search);
 			if (response !== -1) {
 				setAllProduct(response);
+				setLoading(false);
 			} else {
+				setLoading(false);
 				Modal.error({
 					title: 'Error',
 					content: 'Server Issue try again after sometime...',
@@ -20,6 +24,7 @@ export const DesktopEditProductHome = () => {
 			}
 		} catch (error) {
 			console.log('Error @ DesktopEditProductHome', error);
+			setLoading(false);
 			Modal.error({
 				title: 'Error',
 				content: 'Internal Server Issue try again after sometime...',
@@ -28,12 +33,10 @@ export const DesktopEditProductHome = () => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
 		getProduct();
 	}, []);
 
-	const submitForm = (values) => {
-		console.log(values);
-	};
 	const failedSubmitForm = () => {
 		Modal.error({
 			title: 'Error',
@@ -45,7 +48,7 @@ export const DesktopEditProductHome = () => {
 		<div className={Classes.main}>
 			<h3>Edit Product</h3>
 			<Form
-				onFinish={submitForm}
+				onFinish={getProduct}
 				onFinishFailed={failedSubmitForm}
 				className={Classes.form}
 			>
@@ -57,9 +60,17 @@ export const DesktopEditProductHome = () => {
 					Search
 				</Button>
 			</Form>
-			{allProduct.map((product) => (
-				<SingleLineProduct key={product._id} product={product} />
-			))}
+			{loading ? (
+				<Loading title="Loading" />
+			) : allProduct.length > 0 ? (
+				allProduct.map((product) => (
+					<SingleLineProduct key={product._id} product={product} />
+				))
+			) : (
+				<div className={Classes.noProductFound}>
+					<h3>No Product Found! Try Something else...</h3>
+				</div>
+			)}
 		</div>
 	);
 };
